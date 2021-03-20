@@ -23,21 +23,21 @@ function Grid() {
 
   return !data ? null : (
     <div className="grid">
-        <div className="grid-content">
-          {data.map((item, i) => {
-            const [npi, providerType, gender, name, addrPractice, country] = item;
-            return (
-              <div key={i} className="grid-gridCard">
-                <div>{providerType}</div>
-                <div className="grid-gridCard-primaryColumn">
-                  <Link to={`/card/${npi}`}>{name}</Link>
-                  <div className="grid-gridCard-primaryColumn-rightText">{gender === 'F' ? 'Female' : 'Male'}</div>
-                </div>
-                <div>{country}, {addrPractice}</div>
+      <div className="grid-content">
+        {data.map((item, i) => {
+          const [npi, providerType, gender, name, addrPractice, country] = item;
+          return (
+            <div key={i} className="grid-gridCard">
+              <div>{providerType}</div>
+              <div className="grid-gridCard-primaryColumn">
+                <Link to={`/card/${npi}`}>{name}</Link>
+                <div className="grid-gridCard-primaryColumn-rightText">{gender === 'F' ? 'Female' : 'Male'}</div>
               </div>
-            );
-          })}
-        </div>
+              <div>{country}, {addrPractice}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

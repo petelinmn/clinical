@@ -1,23 +1,34 @@
 import '../App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import './Search.css'
 
 function Search() {
   const params = useParams();
-  const [searchString, setSearchString] = useState(params.text ? params.text : '');
+  const [state, setState] = useState({
+    searchString: params.text ? params.text : '',
+    prevSearchString: params.text
+  });
+  useEffect(() => {
+    if (state.prevSearchString !== params.text) {
+      setState({ 
+        searchString: params.text, 
+        prevSearchString: params.text
+      });
+    }
+  });
   const history = useHistory();
   return (
     <div className="search">
-      <input value={searchString} onChange={e => {
-        setSearchString(e.target.value);
+      <input value={state.searchString} onChange={e => {
+        setState({ ...state, searchString: e.target.value });
       }} onKeyDown={e => {
         if (e.key === 'Enter') {
-          history.push(`/search/${searchString}`);
+          history.push(`/search/${state.searchString}`);
         }
       }} />
-      <button disabled={!searchString} onClick={() => {
-        history.push(`/search/${searchString}`);
+      <button disabled={!state.searchString} onClick={() => {
+        history.push(`/search/${state.searchString}`);
       }}>Go</button>
     </div>
   );
