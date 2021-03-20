@@ -1,31 +1,26 @@
 import '../App.css';
-import fieldDefinitions from '../fieldDefinitions.json'
 import { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import './Search.css'
 
-const baseUrl = 'https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search';
-
-function Search(props) {
-  const [searchString, setSearchString] = useState('');
+function Search() {
+  const params = useParams();
+  const [searchString, setSearchString] = useState(params.text ? params.text : '');
+  const history = useHistory();
   return (
     <div className="search">
-          <input value={searchString} onChange={e => {
-            setSearchString(e.target.value);
-          }} />
-          <button disabled={!searchString} onClick={() => {
-            const maxList = 10;
-            const df = `&df=${fieldDefinitions.map(item => item.name)
-              .reduce((acc, curItem) => acc + ',' + curItem)}`;
-
-            fetch(`${baseUrl}?maxList=${maxList}&terms=${searchString}${df}`)
-            .then(response => response.json().then(result => {
-              if (props.onLoad) {
-                props.onLoad(result[3]);
-              }
-            }))
-          }}>search</button>
+      <input value={searchString} onChange={e => {
+        setSearchString(e.target.value);
+      }} onKeyDown={e => {
+        if (e.key === 'Enter') {
+          history.push(`/search/${searchString}`);
+        }
+      }} />
+      <button disabled={!searchString} onClick={() => {
+        history.push(`/search/${searchString}`);
+      }}><img src="/search.png" width="18" alt="search icon"></img></button>
     </div>
   );
 }
-
 
 export default Search;
