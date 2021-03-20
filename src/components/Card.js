@@ -10,7 +10,7 @@ function Card() {
     let isCancelled = false;
     fetchCardData(params.npi).then(result => {
       if (!isCancelled) {
-        setData(result.filter(item => item.value[0] !== '{' && !!item.value));
+        setData(result.filter(item => item.value[0] !== '{'));
       }
     });
 
@@ -34,7 +34,7 @@ function Card() {
           return (
             <div className={"card-Card"} key={index}>
               <div className={"card-Card-fieldCaption"}>{item.caption}</div>
-              {item.value}
+              {item.value ? item.value : 'N/A'}
             </div>
           );
         })}

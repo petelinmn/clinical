@@ -18,7 +18,7 @@ function Search() {
       }} />
       <button disabled={!searchString} onClick={() => {
         history.push(`/search/${searchString}`);
-      }}><img src="/search.png" width="18" alt="search icon"></img></button>
+      }}>Go</button>
     </div>
   );
 }
