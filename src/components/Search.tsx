@@ -50,13 +50,13 @@ function Search() {
   const history = useHistory();
   const doSearch = () => history.push(`/search/${state.searchString}`);
 
-  const renderSearch = () => (
+  const renderSearch = (): JSX.Element => (
     <div className="search">
       <button disabled={!state.searchString} onClick={doSearch}>
         <SearchIcon/>
       </button>
       <input value={state.searchString} 
-        onChange={e => setState({ ...state, searchString: e.target.value })} 
+        onChange={(e: any) => setState({ ...state, searchString: e.target.value })} 
         onKeyDown={e => (e.key === 'Enter') && doSearch()} 
       />
       <button disabled={!state.searchString} onClick={() => setState({ ...state, searchString: '' })}>
@@ -65,7 +65,7 @@ function Search() {
     </div>
   );
 
-  return params.text
+  return params?.text
     ? renderSearch()
     : (
       <div className="init-search">
