@@ -1,15 +1,19 @@
 import './Grid.css';
-import { Link } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { fetchListData } from '../dataFetchService';
+import { IDataItem } from '../Types'
+
+interface IGridParams {
+  text: string
+}
 
 function Grid() {
-  const params = useParams();
-  const [data, setData] = useState();
+  const params = useParams<IGridParams>();
+  const [data, setData] = useState<IDataItem[][]>([]);
   useEffect(() => {
-    const maxList = 10;
-    let isCancelled = false;
+    const maxList: number = 10;
+    let isCancelled: boolean = false;
     fetchListData(params.text, maxList).then(result => {
       if (!isCancelled) {
         setData(result);
@@ -19,13 +23,13 @@ function Grid() {
     return () => {
       isCancelled = true;
     };
-  });
+  }, [params.text]);
 
-  return !data ? null : (
+  return (
     <div className="grid">
       <div className="grid-content">
-        {data.map((item, i) => {
-          const [npi, providerType, gender, name, addrPractice, country] = item;
+        {data?.map((item, i) => {
+          const [npi, providerType, gender, name, addrPractice, country] = item.map((i: { value: string; }) => i.value);
           return (
             <div key={i} className="grid-gridCard">
               <div>{providerType}</div>
