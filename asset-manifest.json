@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/clinical/static/css/main.be7239a4.chunk.css",
-    "main.js": "/clinical/static/js/main.48230aa3.chunk.js",
-    "main.js.map": "/clinical/static/js/main.48230aa3.chunk.js.map",
+    "main.js": "/clinical/static/js/main.87616c8b.chunk.js",
+    "main.js.map": "/clinical/static/js/main.87616c8b.chunk.js.map",
     "runtime-main.js": "/clinical/static/js/runtime-main.9474afe6.js",
     "runtime-main.js.map": "/clinical/static/js/runtime-main.9474afe6.js.map",
     "static/js/2.461cba59.chunk.js": "/clinical/static/js/2.461cba59.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.9474afe6.js",
     "static/js/2.461cba59.chunk.js",
     "static/css/main.be7239a4.chunk.css",
-    "static/js/main.48230aa3.chunk.js"
+    "static/js/main.87616c8b.chunk.js"
   ]
 }
