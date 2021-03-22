@@ -28,24 +28,24 @@ interface ISearchParams {
 
 interface ISearchState {
   searchString: string,
-  prevSearchString: string
+  oldParamText: string
 }
 
 function Search() {
   const params = useParams<ISearchParams>();
   const [state, setState] = useState<ISearchState>({
     searchString: params.text ?? '',
-    prevSearchString: params.text
+    oldParamText: params.text
   });
 
   useEffect(() => {
-    if (!!state.prevSearchString && state.prevSearchString !== params.text) {
+    if (params.text !== state.oldParamText) {
       setState({ 
-        searchString: params.text, 
-        prevSearchString: params.text
+        searchString: params.text ?? '', 
+        oldParamText: params.text ?? ''
       });
     }
-  }, [state.prevSearchString, params.text]);
+  }, [params.text, state.oldParamText]);
 
   const history = useHistory();
   const doSearch = () => history.push(`/search/${state.searchString}`);
@@ -56,8 +56,8 @@ function Search() {
         <SearchIcon/>
       </button>
       <input value={state.searchString} 
-        onChange={(e: any) => setState({ ...state, searchString: e.target.value })} 
-        onKeyDown={e => (e.key === 'Enter') && doSearch()} 
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState({ ...state, searchString: e.target.value })} 
+        onKeyDown={(e: React.KeyboardEvent) => (e.key === 'Enter') && doSearch()} 
       />
       <button disabled={!state.searchString} onClick={() => setState({ ...state, searchString: '' })}>
         {!!state.searchString && <EraseIcon />}
