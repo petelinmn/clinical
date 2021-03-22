@@ -10,7 +10,7 @@ interface IGridParams {
 
 function Grid() {
   const params = useParams<IGridParams>();
-  const [data, setData] = useState<IDataItem[][]>([]);
+  const [data, setData] = useState<IDataItem[][]>();
   useEffect(() => {
     const maxList: number = 10;
     let isCancelled: boolean = false;
@@ -28,7 +28,7 @@ function Grid() {
   return (
     <div className="grid">
       <div className="grid-content">
-        {!data || !data.length ? 'nothing found' : data?.map((item, i) => {
+        {!!data &&   !data.length ? 'nothing found' : data?.map((item, i) => {
           const [npi, providerType, gender, name, addrPractice, country] = item.map((i: { value: string; }) => i.value);
           return (
             <div key={i} className="grid-gridCard">
